@@ -148,7 +148,39 @@
             background-color: #d97706;
             transform: translateY(-3px);
         }
+        
+
+          
+     
     </style>
+
+    <style>
+  .scroll-banner {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #f0f8ff;
+    border: 2px solid #007bff;
+    padding: 10px 0;
+  }
+
+  .scroll-banner h1 {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 15s linear infinite;
+    font-size: 1.5em;
+    color: #007bff;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+</style>
 </head>
 <body>
     <!-- Progress Bar -->
@@ -162,8 +194,7 @@
     </div>
     
     <!-- Header -->
-     <h1>Ram Class – Offline Coaching in Jalgaon for Class 1st to 5th</h1>
-
+     
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center">
@@ -730,6 +761,9 @@
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
                 <p>&copy; 2025 Ram Classes. All rights reserved.</p>
+                <div class="scroll-banner">
+                 <h1>📚 Ram Class – Offline Coaching in Jalgaon for Class 1st to 5th 🏫✨</h1>
+
             </div>
         </div>
     </footer>
