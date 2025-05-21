@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ram Classes offers quality education for classes 1-5 in Jalgaon, focusing on building strong foundations for lifelong learning.">
+    <meta name="keywords" content="Ram Classes, education, Jalgaon, classes 1-5, affordable education, child-centric learning">
+    <title>Ram Classes - Bachpan Ki Padhai, Future Ki Tayari</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://media.nature.com/lw767/magazine-assets/d41586-022-00154-y/d41586-022-00154-y_20066308.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #f59e0b;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        
+        .subject-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .subject-icon:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #f59e0b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #d97706;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-xl mr-3 animate__animated animate__bounceIn" aria-label="Ram Classes Logo">RC</div>
+                <h1 class="text-2xl font-bold text-gray-800">Ram Classes</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-800 hover:text-yellow-600 font-medium transition duration-300">Home</a>
+                <a href="#about" class="text-gray-800 hover:text-yellow-600 font-medium transition duration-300">About</a>
+                <a href="#features" class="text-gray-800 hover:text-yellow-600 font-medium transition duration-300">Why Us</a>
+                <a href="#subjects" class="text-gray-800 hover:text-yellow-600 font-medium transition duration-300">Subjects</a>
+                <a href="#testimonials" class="text-gray-800 hover:text-yellow-600 font-medium transition duration-300">Reviews</a>
+                <a href="#contact" class="text-gray-800 hover:text-yellow-600 font-medium transition duration-300">Contact</a>
+            </nav>
+            <button id="menu-toggle" class="md:hidden text-gray-800 focus:outline-none" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-md">
+            <div class="container mx-auto px-4 py-3 flex flex-col">
+                <a href="#home" class="py-3 text-gray-800 hover:text-yellow-600 border-b border-gray-100 transition duration-300">Home</a>
+                <a href="#about" class="py-3 text-gray-800 hover:text-yellow-600 border-b border-gray-100 transition duration-300">About</a>
+                <a href="#features" class="py-3 text-gray-800 hover:text-yellow-600 border-b border-gray-100 transition duration-300">Why Us</a>
+                <a href="#subjects" class="py-3 text-gray-800 hover:text-yellow-600 border-b border-gray-100 transition duration-300">Subjects</a>
+                <a href="#testimonials" class="py-3 text-gray-800 hover:text-yellow-600 border-b border-gray-100 transition duration-300">Reviews</a>
+                <a href="#contact" class="py-3 text-gray-800 hover:text-yellow-600 transition duration-300">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero text-white py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate__animated animate__fadeInDown">Bachpan Ki Padhai, Future Ki Tayari</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto animate__animated animate__fadeIn animate__delay-1s">Quality education for classes 1-5 in a nurturing environment that helps your child be at their best.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate__animated animate__fadeInUp animate__delay-1s">
+                <a href="https://forms.gle/ZHbJAYeUfUukRsT97" target="_blank" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+                    Apply Now
+                </a>
+                <a href="https://maps.app.goo.gl/ghzZ4NAuZ61A93627" target="_blank" class="bg-white hover:bg-gray-100 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-map-marker-alt mr-2"></i> Get Directions
+                </a>
+            </div>
+            <div class="mt-16 animate__animated animate__fadeIn animate__delay-2s">
+                <a href="#about" class="text-white hover:text-yellow-300 transition duration-300">
+                    <i class="fas fa-chevron-down text-3xl floating"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 md:pr-8 animate__animated animate__fadeInLeft">
+                    <div class="relative">
+                        <img src="https://media.istockphoto.com/id/1151224308/photo/teachers-with-children-learning-at-preschool.jpg?s=612x612&w=0&k=20&c=8DTKc4VYvTuPddcrgoCYBH9hjKQdV5qzkgg0nOEhuoo=" alt="Indian classroom" class="rounded-lg shadow-xl w-full">
+                        <div class="absolute -bottom-5 -right-5 bg-yellow-500 p-4 rounded-lg shadow-lg">
+                            <div class="text-white text-2xl font-bold">
+                                <span class="block text-4xl">5+</span>
+                                Years Experience
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 animate__animated animate__fadeInRight">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">About Ram Classes</h2>
+                    <p class="text-gray-600 mb-6 text-lg">We provide affordable, quality education for students from class 1 to 5 in Jalgaon. Our focus is on building strong foundations for lifelong learning.</p>
+                    <div class="bg-yellow-50 p-6 rounded-lg mb-8 border-l-4 border-yellow-500">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-2xl">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-gray-800 text-xl">Faculty: Vaishali Patil</h3>
+                                <p class="text-gray-600">5 years teaching experience</p>
+                                <p class="text-gray-600">Former teacher at Shradashram School</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic">"Every child has unique potential. My approach focuses on identifying and nurturing each student's strengths while making learning enjoyable."</p>
+                    </div>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-check-circle text-yellow-500 mr-2"></i>
+                            <span>Personal Attention</span>
+                        </div>
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-check-circle text-yellow-500 mr-2"></i>
+                            <span>Interactive Learning</span>
+                        </div>
+                        <div class="bg-gray-100 px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-check-circle text-yellow-500 mr-2"></i>
+                            <span>Regular Assessments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Ram Classes?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We provide a learning environment that nurtures young minds and prepares them for future success.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center">
+                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-6">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Affordable Fees</h3>
+                    <p class="text-gray-600">Quality education shouldn't be expensive. We keep our fees reasonable to make good education accessible to all.</p>
+                    <div class="mt-6">
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-yellow-500 rounded-full" style="width: 95%"></div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">95% parent satisfaction</p>
+                    </div>
+                </div>
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center">
+                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-6">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Strong Foundation</h3>
+                    <p class="text-gray-600">We focus on core concepts that build a strong academic foundation for higher classes and competitive exams.</p>
+                    <div class="mt-6">
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-yellow-500 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">90% concept clarity</p>
+                    </div>
+                </div>
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center">
+                    <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-6">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Child-Centric Approach</h3>
+                    <p class="text-gray-600">Learning methods tailored to how children learn best, making education engaging and effective.</p>
+                    <div class="mt-6">
+                        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-yellow-500 rounded-full" style="width: 98%"></div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">98% student engagement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Section -->
+    <section id="subjects" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Subjects</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive coverage of all core subjects with innovative teaching methods.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Mathematics</h3>
+                    <p class="text-gray-600">Building strong numerical foundations</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">English</h3>
+                    <p class="text-gray-600">Developing language and communication skills</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">EVS/Science</h3>
+                    <p class="text-gray-600">Exploring the world around us</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Social Studies</h3>
+                    <p class="text-gray-600">Understanding our society and history</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Hindi</h3>
+                    <p class="text-gray-600">Mastering our national language</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Marathi</h3>
+                    <p class="text-gray-600">Learning our regional language</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Drawing</h3>
+                    <p class="text-gray-600">Creative expression through art</p>
+                </div>
+                <div class="text-center">
+                    <div class="subject-icon w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-3xl mx-auto mb-4">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Music</h3>
+                    <p class="text-gray-600">Introduction to rhythm and melody</p>
+                </div>
+            </div>
+            <div class="mt-12 bg-yellow-50 rounded-lg p-8">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Our Teaching Methodology</h3>
+                        <p class="text-gray-600 mb-4">We combine traditional teaching methods with modern pedagogical approaches to create an optimal learning experience.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-yellow-500 mt-1 mr-2"></i>
+                                <span>Interactive classroom sessions</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-yellow-500 mt-1 mr-2"></i>
+                                <span>Regular assessments and feedback</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-yellow-500 mt-1 mr-2"></i>
+                                <span>Visual and practical learning aids</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white text-xl mr-4">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800">Student Progress Tracking</h4>
+                            </div>
+                            <p class="text-gray-600 mb-4">We maintain detailed progress reports for each student and share them regularly with parents.</p>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Concept Understanding</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full mb-4">
+                                <div class="h-full bg-yellow-500 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Homework Completion</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full mb-4">
+                                <div class="h-full bg-yellow-500 rounded-full" style="width: 92%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-500 mb-2">
+                                <span>Class Participation</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-full bg-yellow-500 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">What Parents Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Hear from parents whose children have benefited from our teaching approach.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-xl mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="text-yellow-500 mb-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-600 text-sm">Parent of Class 3 student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"My child's reading skills have improved dramatically since joining Ram Classes. The individual attention makes all the difference."</p>
+                    <div class="text-right">
+                        <i class="fas fa-quote-right text-yellow-500 opacity-30"></i>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-xl mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="text-yellow-500 mb-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-gray-600 text-sm">Parent of Class 5 student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"The affordable fees and quality teaching at Ram Classes helped my daughter score 95% in her final exams. Highly recommended!"</p>
+                    <div class="text-right">
+                        <i class="fas fa-quote-right text-yellow-500 opacity-30"></i>
+                    </div>
+                </div>
+                <div class="testimonial-card bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-xl mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="text-yellow-500 mb-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="text-gray-600 text-sm">Parent of Class 1 student</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"My son used to hate going to school, but now he looks forward to his classes at Ram Classes. The teaching methods make learning fun."</p>
+                    <div class="text-right">
+                        <i class="fas fa-quote-right text-yellow-500 opacity-30"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial Carousel -->
+            <div class="mt-16 relative">
+                <div class="testimonial-slider overflow-hidden">
+                    <div class="flex transition-transform duration-300 ease-in-out" id="testimonial-slides">
+                        <div class="w-full flex-shrink-0 px-4">
+                            <div class="bg-white p-8 rounded-lg shadow-md text-center max-w-3xl mx-auto">
+                                <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-2xl mx-auto mb-6">
+                                    <i class="fas fa-quote-left"></i>
+                                </div>
+                                <p class="text-gray-700 text-lg mb-6">"The transformation in my child's learning attitude after joining Ram Classes has been remarkable. The teachers are patient and know exactly how to make concepts clear for young minds."</p>
+                                <div class="text-yellow-500 mb-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="font-bold text-gray-800">Mrs. Sharma</p>
+                                <p class="text-gray-600 text-sm">Parent of Class 4 student</p>
+                            </div>
+                        </div>
+                        <div class="w-full flex-shrink-0 px-4">
+                            <div class="bg-white p-8 rounded-lg shadow-md text-center max-w-3xl mx-auto">
+                                <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 text-2xl mx-auto mb-6">
+                                    <i class="fas fa-quote-left"></i>
+                                </div>
+                                <p class="text-gray-700 text-lg mb-6">"I appreciate the regular updates and feedback from Ram Classes. It's clear they genuinely care about each student's progress. My daughter's grades have improved significantly."</p>
+                                <div class="text-yellow-500 mb-2">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="font-bold text-gray-800">Mr. Patel</p>
+                                <p class="text-gray-600 text-sm">Parent of Class 2 student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-yellow-500 hover:text-yellow-600 focus:outline-none" id="prev-testimonial">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-yellow-500 hover:text-yellow-600 focus:outline-none" id="next-testimonial">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="flex justify-center mt-6 space-x-2">
+                    <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none testimonial-dot active" data-index="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 focus:outline-none testimonial-dot" data-index="1"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-yellow-500 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+                <div class="animate__animated animate__fadeInUp">
+                    <div class="text-4xl md:text-5xl font-bold mb-2">5+</div>
+                    <p class="text-lg">Years Experience</p>
+                </div>
+                <div class="animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="text-4xl md:text-5xl font-bold mb-2">95%</div>
+                    <p class="text-lg">Satisfaction Rate</p>
+                </div>
+                <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="text-4xl md:text-5xl font-bold mb-2">10+</div>
+                    <p class="text-lg">Subjects Covered</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-2xl p-8 md:p-12 shadow-lg animate__animated animate__pulse animate__infinite animate__slower">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Ready to give your child the best start?</h2>
+                <p class="text-xl text-gray-900 mb-8">Limited seats available. Enroll now to secure your child's spot.</p>
+                <a href="https://forms.gle/ZHbJAYeUfUukRsT97" target="_blank" class="inline-block bg-white hover:bg-gray-100 text-gray-900 font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+                    Apply Now
+                </a>
+                <p class="text-gray-800 mt-6 text-sm">Admission process includes a free demo class and assessment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-12 md:mb-0 md:pr-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Contact Us</h2>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Address</h3>
+                        <p class="text-gray-600 mb-6">Plot No. 26, Gat No. 101/2<br>Mundadanagar, Jalgaon</p>
+                        <a href="https://maps.app.goo.gl/ghzZ4NAuZ61A93627" target="_blank" class="inline-flex items-center text-yellow-600 hover:text-yellow-700 font-medium">
+                            <i class="fas fa-map-marker-alt mr-2"></i> View on Map
+                        </a>
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Contact Details</h3>
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-phone-alt text-yellow-500 mr-3"></i>
+                            <a href="tel:9699067687" class="text-gray-600 hover:text-yellow-600">9699067687</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-yellow-500 mr-3"></i>
+                            <a href="mailto:atharvakp0@gmail.com" class="text-gray-600 hover:text-yellow-600">atharvakp0@gmail.com</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://www.facebook.com/people/Ram-classes/61576001515856/" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 hover:bg-yellow-500 hover:text-white transition duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.instagram.com/ramclassesjalgaon/" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 hover:bg-yellow-500 hover:text-white transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://wa.link/pxmez5" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 hover:bg-yellow-500 hover:text-white transition duration-300">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Have questions?</h3>
+                        <form id="contactForm">
+                            <div class="mb-4">
+                                <input type="text" id="name" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                            </div>
+                            <div class="mb-4">
+                                <input type="tel" id="phone" placeholder="Phone Number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                            </div>
+                            <div class="mb-4">
+                                <select id="class" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                                    <option value="">Select Class</option>
+                                    <option value="1">Class 1</option>
+                                    <option value="2">Class 2</option>
+                                    <option value="3">Class 3</option>
+                                    <option value="4">Class 4</option>
+                                    <option value="5">Class 5</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <textarea id="message" placeholder="Your Message" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-[1.02]">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 w-full">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.987274646963!2d75.5678233154025!3d21.0078442930243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDAwJzI4LjIiTiA3NcKwMzQnMTMuNiJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3" aria-label="Ram Classes Logo">RC</div>
+                        <h2 class="text-xl font-bold">Ram Classes</h2>
+                    </div>
+                    <p class="text-gray-400 mb-4">Bachpan Ki Padhai, Future Ki Tayari</p>
+                    <p class="text-gray-400 text-sm">Providing quality education since 2019.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-yellow-500 transition duration-300">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-yellow-500 transition duration-300">About Us</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-yellow-500 transition duration-300">Why Choose Us</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-yellow-500 transition duration-300">Testimonials</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-yellow-500 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Classes</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Class 1</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Class 2</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Class 3</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Class 4</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Class 5</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-500"></i>
+                            <span>Plot No. 26, Gat No. 101/2, Mundadanagar, Jalgaon</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-yellow-500"></i>
+                            <span>9699067687</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-yellow-500"></i>
+                            <span>atharvakp0@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 Ram Classes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll progress bar
+        window.onsscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+            
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        };
+        
+        // Back to top button
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Testimonial slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#testimonial-slides > div');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        
+        function showSlide(index) {
+            const slider = document.getElementById('testimonial-slides');
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('bg-yellow-500');
+                    dot.classList.remove('bg-gray-300');
+                } else {
+                    dot.classList.add('bg-gray-300');
+                    dot.classList.remove('bg-yellow-500');
+                }
+            });
+        }
+        
+        document.getElementById('next-testimonial').addEventListener('click', function() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        });
+        
+        document.getElementById('prev-testimonial').addEventListener('click', function() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        });
+        
+        // Dot navigation
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                currentSlide = parseInt(this.getAttribute('data-index'));
+                showSlide(currentSlide);
+            });
+        });
+        
+        // Auto slide change
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+        
+        // Form submission - redirect to email client
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const studentClass = document.getElementById('class').value;
+            const message = document.getElementById('message').value;
+            
+            const subject = `Enquiry for Ram Classes - ${name}`;
+            const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0AClass: ${studentClass}%0D%0AMessage: ${message}`;
+            
+            window.location.href = `mailto:atharvakp0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+    </script>
+</body>
+</html>
